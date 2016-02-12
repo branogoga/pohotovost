@@ -4,8 +4,79 @@
         <title>Emergino</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>
+
+            var points = [
+                { lat: 10, lon: 10 },
+                { lat: 11, lon: 10 },
+                { lat: 12, lon: 10 },
+                { lat: 13, lon: 10 },
+                { lat: 14, lon: 10 },                
+            ];                      
+    
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    alert("Geolocation is not supported by this browser.");
+                }
+            }
+            var currentLatitude = null;
+            var currentLongitude = null;
+            function showMapWithPosition(lat, long) {
+                var latlon = lat + "," + long;
+
+                var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false";
+
+                document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";            
+            }
+            function showPosition(position) {
+                currentLatitude = position.coords.latitude;
+                currentLongitude = position.coords.longitude;
+                showMapWithPosition(currentLatitude, currentLongitude);
+                
+                console.log(points);
+                
+                for(var i = 0; i < points.length; i++) {
+                    var point = points[i];
+                    point.distance = getDistanceFromLatLonInKm(
+                            currentLatitude, currentLongitude,
+                            point.lat, point.lon
+                            );    
+                    console.log(point.distance);
+                }    
+                
+                points.sort(function(a, b) {
+                    return parseFloat(a.distance) - parseFloat(b.distance);
+                });                
+                
+                console.log(points);
+            }
+            function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+              var R = 6371; // Radius of the earth in km
+              var dLat = deg2rad(lat2-lat1);  // deg2rad below
+              var dLon = deg2rad(lon2-lon1); 
+              var a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2)
+                ; 
+              var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+              var d = R * c; // Distance in km
+              return d;
+            }
+
+            function deg2rad(deg) {
+              return deg * (Math.PI/180)
+            }            
+            function run() {
+                getLocation();
+            };
+        </script>
     </head>
-    <body>
+    <body onload="run()">
         <div>Hello Patient!</div>
+        <div id="mapholder"></div>
     </body>
 </html>
