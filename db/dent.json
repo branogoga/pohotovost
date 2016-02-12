@@ -1,0 +1,44 @@
+[
+    {
+        "name": "ANSAB DENT - MUDr. Andriy Slyvka",
+        "adress": "Zadunajska 12",
+        "postcode": "85101",
+        "city": "Bratislava",
+        "contact": {
+            "phone": "+421902617571",
+            "email": "Slyvka.andriy@gmail.com",
+            "www": "www.ansab-dent.sk",
+        },
+        "openings": {
+            "1": {
+                "open": "08:00",
+                "close": "24:00",
+            },
+            "2": {
+                "open": "08:00",
+                "close": "24:00",
+            },
+            "3": {
+                "open": "08:00",
+                "close": "24:00",
+            },
+            "4": {
+                "open": "08:00",
+                "close": "24:00",
+            },
+            "5": {
+                "open": "08:00",
+                "close": "24:00",
+            },
+            "6": {
+                "open": "08:00",
+                "close": "24:00",
+            },
+            "7": {
+                "open": "08:00",
+                "close": "24:00",
+            },
+
+        }
+    }
+]
