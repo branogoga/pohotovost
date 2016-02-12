@@ -6,13 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
         <script>
-            function loadDatabase() {
-                $.getJSON("../../db/dent.json", function(json) {
-                    console.log(json); // this will show the info it in firebug console
-                    alert(json);
-                });            
-            }
-            
+
+            var points = [
+                { lat: 10, lon: 10 },
+                { lat: 11, lon: 10 },
+                { lat: 12, lon: 10 },
+                { lat: 13, lon: 10 },
+                { lat: 14, lon: 10 },                
+            ];                      
+    
             function getLocation() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition);
@@ -20,12 +22,36 @@
                     alert("Geolocation is not supported by this browser.");
                 }
             }
-            function showPosition(position) {
-                var latlon = position.coords.latitude + "," + position.coords.longitude;
+            var currentLatitude = null;
+            var currentLongitude = null;
+            function showMapWithPosition(lat, long) {
+                var latlon = lat + "," + long;
 
                 var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false";
 
-                document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+                document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";            
+            }
+            function showPosition(position) {
+                currentLatitude = position.coords.latitude;
+                currentLongitude = position.coords.longitude;
+                showMapWithPosition(currentLatitude, currentLongitude);
+                
+                console.log(points);
+                
+                for(var i = 0; i < points.length; i++) {
+                    var point = points[i];
+                    point.distance = getDistanceFromLatLonInKm(
+                            currentLatitude, currentLongitude,
+                            point.lat, point.lon
+                            );    
+                    console.log(point.distance);
+                }    
+                
+                points.sort(function(a, b) {
+                    return parseFloat(a.distance) - parseFloat(b.distance);
+                });                
+                
+                console.log(points);
             }
             function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
               var R = 6371; // Radius of the earth in km
@@ -45,7 +71,6 @@
               return deg * (Math.PI/180)
             }            
             function run() {
-                loadDatabase();
                 getLocation();
             };
         </script>
