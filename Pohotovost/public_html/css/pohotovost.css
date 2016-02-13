@@ -13,7 +13,7 @@
 
 #mapholder {
     width: 100%;
-    height: 400px;
+    height: 320px;
 }
 
 .map img {
@@ -21,6 +21,14 @@
 	width: 100%;
 	/*padding: 0 2em;
 	margin: auto;*/
+}
+
+#navigate {
+}
+
+#navigate, #call {
+    width: 30px;
+    height: 30px;
 }
 
 .name img {
@@ -43,6 +51,9 @@
 	padding: 0.5em;
 }
 
+body {
+    min-width: 100;
+}
 .top-bar-section ul li {
     background: #0066cc;
 }
@@ -82,7 +93,7 @@ ul li:hover{
 body > nav > section > ul > li:nth-child(2) > a > img {
     position: absolute;
     top: 0px;
-    left: 100px;
+    left: 50px;
 }
 
 #logo a:hover:after {
@@ -98,8 +109,11 @@ body > nav > section > ul > li:nth-child(2) > a > img {
 
 
 .has-dropdown a img {
-	max-width: 2em;
+	max-width: 22px;
+    margin-top: -5px;
 	height: auto;
+    vertical-align: center;
+    margin: auto;
 }
 
 .top-bar-section ul li > a {
