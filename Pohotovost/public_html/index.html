@@ -14,7 +14,8 @@
         <script>
 
             // TODO: add choices
-            var points = pharmacies;                      
+            var selected = "pharmacy";
+            var points = pharmacy;                      
     
             function getLocation() {
                 if (navigator.geolocation) {
@@ -63,7 +64,7 @@
                 for(var i = 0; i < points.length; i++) {
                     var point = points[i];
                     
-                    tableHtml += "  <tr><td>"+(1+i)+".<td><td>"+point.name+"</td><td>"+point.address+"</td><td>"+point.distance+" km</td><tr>";
+                    tableHtml += "  <tr><td>"+(1+i)+".<td><td>"+point.name+"</td><td>"+point.address+"</td><td>"+(Math.round(point.distance * 100) / 100)+" km</td><tr>";
                 }    
                 
                 tableHtml += "</table>";
@@ -111,9 +112,15 @@
               });
               markers.push(marker);
 
+            var icon = {
+                url: "img/" + selected + "_pin.png", // url
+                scaledSize: new google.maps.Size(30, 50), // scaled size
+                origin: new google.maps.Point(0,0), // origin
+                anchor: new google.maps.Point(0, 0) // anchor
+            };
 
               for (var i = 0; i < points.length; i++) {
-                addMarker(i, points[i]['lat'], points[i]['lon'], null);
+                addMarker(i, points[i]['lat'], points[i]['lon'], icon);
               }
             }
 
@@ -121,7 +128,6 @@
               var marker = new google.maps.Marker({
                 position: {lat: lat, lng: lng},
                 map: map,
-                label: ""+id,
                 icon: icon
               });
 
@@ -137,6 +143,7 @@
               for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(null);
               }
+              markers = []
             }
 
             function navigateTo(lat, lng) {
