@@ -35,6 +35,7 @@
 
 .buttons {
 		text-align: center;
+
 }
 
 .buttons img {
@@ -110,6 +111,18 @@ table {
 	width: 100%;
 }
 
-#pharmacy-icon:hover {
-background-image: url('img/pharmacy_3.png');
+.pharmacy-icon-active:hover {
+-webkit-filter: brightness(130%);
+filter: brightness(130%);
 }
+.emergency-icon-active:hover {
+-webkit-filter: brightness(130%);
+filter: brightness(130%);
+}
+
+.dental-icon-active:hover {
+-webkit-filter: brightness(130%);
+filter: brightness(130%);
+}
+
+
