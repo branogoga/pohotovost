@@ -45,8 +45,9 @@
             function showPosition(position) {
                 currentLatitude = position.coords.latitude;
                 currentLongitude = position.coords.longitude;
-                showMapWithPosition(currentLatitude, currentLongitude);
                 showTable();
+
+                showMapWithPosition(currentLatitude, currentLongitude);
             }
             function showTable() {
                 // Parse JSON string into object
@@ -66,24 +67,7 @@
                 points.sort(function(a, b) {
                     return parseFloat(a.distance) - parseFloat(b.distance);
                 });                
-
-                console.log(points);
-                
-                var tableHtml = 
-                  "<table>"
-                + "  <thead><th>Name</th><th>Address</th><th>Distance</th><th>Navigate</th></thead><tbody>";
-        
-                for(var i = 0; i < points.length; i++) {
-                    var point = points[i];
-                    
-
-                    tableHtml += "  <tr id='"+i+"'><td>"+point.name+"</td><td>"+point.address+"</td><td>"+(Math.round(point.distance * 100) / 100)+" km</td><td><button onClick='navigateTo("+i+")'>Navigate</button></td></tr>";
-
-                }    
-                
-                tableHtml += "</tbody></table>";
-                
-                document.getElementById("table").innerHTML = tableHtml;
+                changeTo(points[0]);
             }
             function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
               var R = 6371; // Radius of the earth in km
@@ -117,12 +101,21 @@
             function initMap(lat, lng) {
               map = new google.maps.Map(document.getElementById('mapholder'), {
                 center: {lat: lat, lng: lng},
-                zoom: 15
+                zoom: 13
               });
+
+
+            var icon = {
+                url: "img/body-point.png", // url
+                scaledSize: new google.maps.Size(31, 48), // scaled size
+                origin: new google.maps.Point(0,0), // origin
+                anchor: new google.maps.Point(0, 0) // anchor
+            };
+
               var marker = new google.maps.Marker({
                 position: {lat: lat, lng: lng},
                 map: map,
-                label: 'Your position'
+                icon: icon
               });
               markers.push(marker);
 
@@ -149,7 +142,7 @@
 
               marker.addListener('click', function() {
                 // TODO: Scroll to correct element
-                animateTo(i);
+                changeTo(points[id]);
               });
             }
 
@@ -160,17 +153,26 @@
               markers = []
             }
 
-            function animateTo(i) {
-                alert(i);
+            function changeTo(point) {
+                distance = getDistanceFromLatLonInKm(
+                    currentLatitude, currentLongitude,
+                    point.lat, point.lon
+                );
+       
+                var tableHtml = 
+                  "<table>"
+                + "  <thead><th>Name</th><th>Address</th><th>Distance</th><th>Navigate</th></thead><tbody>";
+        
+                tableHtml += "  <tr'><td>"+point.name+"</td><td>"+point.address+"</td><td>"+(Math.round(point.distance * 100) / 100)+" km</td><td><button onClick='navigateTo("+point.lat+","+point.lon+")'>Navigate</button></td></tr>";
+                tableHtml += "</tbody></table>";
+                
+                document.getElementById("table").innerHTML = tableHtml;
             }
 
             var directionsDisplay;
             var directionsService;
             
-            function navigateTo(i) {
-                lat = points[i]['lat'];
-                lng = points[i]['lon'];
-
+            function navigateTo(lat, lng) {
                 selectedMode = "DRIVING";
                 clearMarkers();
 
@@ -245,7 +247,6 @@
 	    <script>
 	      $(document).foundation();
 	    </script>
-        <div id="mapholder"></div>
         <div id="table"></div>
     </body>
 </html>
