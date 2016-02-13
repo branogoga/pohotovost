@@ -99,3 +99,7 @@ ul li:hover{
 .top-bar-section ul li > a {
 padding: 0 0 0 1em;
 }
+
+table {
+	width: 100%;
+}
