@@ -1,0 +1,59 @@
+.top-bar {
+  background: #0066cc;
+  height: 4em;
+  text-align: center;
+
+}
+
+.map {
+	/*height: 300px;
+	width: auto;
+	background-color: yellow;*/
+}
+
+.map img {
+	max-width: 100%;
+	width: 100%;
+	/*padding: 0 2em;
+	margin: auto;*/
+}
+
+.name img {
+	width: 17em;
+	height: auto;
+	padding-top: 0.7em;
+}
+
+.name {
+	margin: 0px auto;
+}
+
+.buttons {
+		text-align: center;
+}
+
+.buttons img {
+	max-width: 20em;
+	height: auto;
+	padding: 1em;
+}
+
+.top-bar-section ul li {
+    background: #0066cc;
+}
+
+.top-bar-section li:not(.has-form) a:not(.button) {
+    background: #0066cc;
+}
+
+.top-bar-section ul li:hover:not(.has-form) > a {
+    background-color: #555555;
+}
+
+.top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button) {
+    background: #333333;
+ }
+
+.top-bar-section li.active:not(.has-form) a:not(.button) {
+    background: #0066cc;
+}
