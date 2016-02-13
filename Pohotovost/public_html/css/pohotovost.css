@@ -60,11 +60,11 @@
  }
 
  .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button):hover {
-    background: #333333;
+    background: #004e8e;
 }
 
 .top-bar-section li.active:not(.has-form) a:not(.button) {
-    background: #333333;
+    background: #004e8e;
 }
 
 ul li a img {
@@ -102,5 +102,8 @@ padding: 0 0 0 1em;
 
 table {
 	width: 100%;
-	display: block;
+}
+
+#pharmacy-icon:hover {
+background-image: url('img/pharmacy_3.png');
 }
