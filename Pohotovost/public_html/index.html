@@ -71,13 +71,13 @@
                 
                 var tableHtml = 
                   "<table>"
-                + "  <thead><th>.</th><th>Name</th><th>Address</th><th>Distance</th></thead><tbody>";
+                + "  <thead><th>Name</th><th>Address</th><th>Distance</th><th>Navigate</th></thead><tbody>";
         
                 for(var i = 0; i < points.length; i++) {
                     var point = points[i];
                     
 
-                    tableHtml += "  <tr><td>"+(1+i)+".<td><td>"+point.name+"</td><td>"+point.address+"</td><td>"+(Math.round(point.distance * 100) / 100)+" km</td><tr>";
+                    tableHtml += "  <tr id='"+i+"'><td>"+point.name+"</td><td>"+point.address+"</td><td>"+(Math.round(point.distance * 100) / 100)+" km</td><td><button onClick='navigateTo("+i+")'>Navigate</button></td><tr>";
 
                 }    
                 
@@ -149,7 +149,7 @@
 
               marker.addListener('click', function() {
                 // TODO: Scroll to correct element
-                alert(id);
+                animateTo(i);
               });
             }
 
@@ -160,13 +160,27 @@
               markers = []
             }
 
-            function navigateTo(lat, lng) {
+            function animateTo(i) {
+                alert(i);
+            }
+
+            var directionsDisplay;
+            var directionsService;
+            
+            function navigateTo(i) {
+                lat = points[i]['lat'];
+                lng = points[i]['lon'];
+
                 selectedMode = "DRIVING";
                 clearMarkers();
-                
-                var directionsDisplay = new google.maps.DirectionsRenderer;
-                var directionsService = new google.maps.DirectionsService;
-                directionsDisplay.setMap(map);
+
+                if (!directionsDisplay) {
+                    directionsDisplay  = new google.maps.DirectionsRenderer;
+                    directionsDisplay.setMap(map);
+                }
+                if (!directionsService) {
+                    directionsService = new google.maps.DirectionsService;
+                }
 
                 directionsService.route({
                     origin: {lat: currentLatitude, lng: currentLongitude},  // Haight.
