@@ -30,11 +30,7 @@
             var currentLatitude = 12; //null;
             var currentLongitude = 12; //null;
             function showMapWithPosition(lat, long) {
-                var latlon = lat + "," + long;
-
-                var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=800x600&sensor=false";
-
-                document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";            
+                initMap(lat, long);
             }
             
             function showPosition(position) {
@@ -99,6 +95,74 @@
                 getLocation();
                 showTable();
             };
+
+            /* 
+                GOOGLE MAPS FUNCTIONS
+            */
+
+            var map;
+            var markers = [];
+
+            function initMap(lat, lng) {
+              map = new google.maps.Map(document.getElementById('mapholder'), {
+                center: {lat: lat, lng: lng},
+                zoom: 15
+              });
+              var marker = new google.maps.Marker({
+                position: {lat: lat, lng: lng},
+                map: map,
+                label: 'Your position'
+              });
+              markers.push(marker);
+            }
+
+            function addMarker(id, lat, lng, icon) {
+              var marker = new google.maps.Marker({
+                position: {lat: lat, lng: lng},
+                map: map,
+                label: ""+id,
+                icon: icon
+              });
+
+              markers.push(marker);
+
+              marker.addListener('click', function() {
+                // TODO: Scroll to correct element
+                alert(id);
+              });
+            }
+
+            function clearMarkers() {
+              for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+              }
+            }
+
+            function navigateTo(lat, lng) {
+                selectedMode = "DRIVING";
+                clearMarkers();
+                
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+                var directionsService = new google.maps.DirectionsService;
+                directionsDisplay.setMap(map);
+
+                directionsService.route({
+                    origin: {lat: currentLatitude, lng: currentLongitude},  // Haight.
+                    destination: {lat: lat, lng: lng},  // Ocean Beach.
+                    // Note that Javascript allows us to access the constant
+                    // using square brackets and a string value as its
+                    // "property."
+                    travelMode: google.maps.TravelMode[selectedMode]
+                  }, function(response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                      directionsDisplay.setDirections(response);
+                    } else {
+                      window.alert('Directions request failed due to ' + status);
+                    }
+                });
+
+            }
+
         </script>
     </head>
     <body onload="run()">
@@ -112,7 +176,7 @@
           <li class="active"><a href="#">Active link in dropdown</a></li>
         </ul>
       </li>
-      <li><a href="pohotovost.html">
+      <li><a href="index.html">
       	<img src="img/emergino-logo_white.png" alt="emergino">
       </a></li>
     </ul>
@@ -128,7 +192,8 @@
 		  </div>
 		</nav> -->
 		<section class="map">
-                <div id="mapholder"></div>
+                <div id="mapholder" ></div>
+                <div id="googlemaps"></div>
 		<!--<img src="img/maps.png" alt="maps">-->
 		</section>
 		<section class="table">
@@ -157,6 +222,7 @@
 	    <script src="js/foundation.min.js"></script>
 	    <script src="js/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 	    <script src="js/pohotovost.js"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSvG2HflFKGGYvtu1hJzPgLbKxriyIb7s"></script>
 	    <script>
 	      $(document).foundation();
 	    </script>
