@@ -17,45 +17,56 @@ def read_url(url):
     georesult = json.loads(georesult)
     loc = georesult['results'][0]['geometry']['location']
 
-    result = {
-            "name": soup.find("span", { "class" : "name" }).text.encode('utf-8',errors='replace'),
-            "adress": soup.find("span", { "itemprop" : "streetAddress" }).text.encode('utf-8',errors='replace'),
-            "postcode": soup.find("span", { "itemprop" : "postalCode" }).text.encode('utf-8',errors='replace'),
-            "city": soup.find("span", { "itemprop" : "addressLocality" }).text.encode('utf-8',errors='replace'),
-            "phone": soup.find("span", { "itemprop" : "telephone" }).text.encode('utf-8',errors='replace'),
-            "loc": loc,
-            "openings": {
-                "1": {
-                    "open": "08:00",
-                    "close": "24:00"
-                },
-                "2": {
-                    "open": "08:00",
-                    "close": "24:00"
-                },
-                "3": {
-                    "open": "08:00",
-                    "close": "24:00"
-                },
-                "4": {
-                    "open": "08:00",
-                    "close": "24:00"
-                },
-                "5": {
-                    "open": "08:00",
-                    "close": "24:00"
-                },
-                "6": {
-                    "open": "08:00",
-                    "close": "24:00"
-                },
-                "7": {
-                    "open": "08:00",
-                    "close": "24:00"
-                }
 
-            }
-        }
+    result = {
+        "name": soup.find("span", { "class" : "name" }).text,
+        "address": address,
+        "lat": loc['lat'],
+        'lon': loc['lng'],
+        "phone": soup.find("span", { "itemprop" : "telephone" }).text,
+    }  
+
+    if soup.find("span", { "itemprop" : "addressLocality" }).text == u"Bratislava":
+        return result
+    # result = {
+    #         "name": soup.find("span", { "class" : "name" }).text.encode('utf-8',errors='replace'),
+    #         "adress": soup.find("span", { "itemprop" : "streetAddress" }).text.encode('utf-8',errors='replace'),
+    #         "postcode": soup.find("span", { "itemprop" : "postalCode" }).text.encode('utf-8',errors='replace'),
+    #         "city": soup.find("span", { "itemprop" : "addressLocality" }).text.encode('utf-8',errors='replace'),
+    #         "phone": soup.find("span", { "itemprop" : "telephone" }).text.encode('utf-8',errors='replace'),
+    #         "loc": loc,
+    #         "openings": {
+    #             "1": {
+    #                 "open": "08:00",
+    #                 "close": "24:00"
+    #             },
+    #             "2": {
+    #                 "open": "08:00",
+    #                 "close": "24:00"
+    #             },
+    #             "3": {
+    #                 "open": "08:00",
+    #                 "close": "24:00"
+    #             },
+    #             "4": {
+    #                 "open": "08:00",
+    #                 "close": "24:00"
+    #             },
+    #             "5": {
+    #                 "open": "08:00",
+    #                 "close": "24:00"
+    #             },
+    #             "6": {
+    #                 "open": "08:00",
+    #                 "close": "24:00"
+    #             },
+    #             "7": {
+    #                 "open": "08:00",
+    #                 "close": "24:00"
+    #             }
+
+    #         }
+    #     }
     return result
 
 results = []
@@ -73,13 +84,13 @@ for i in basesoup.findAll('a'):
         baseurl = "https://www.zzz.sk{}".format(i['href'])
         
         try:
-            results.append(read_url(baseurl))
+            result = read_url(baseurl)
+            results.append(result)
         except:
             pass
 
-
-f = open(filename, 'w+')
-f.write(json.dumps(results))
+# f = open(filename, 'w+')
+# f.write(json.dumps(results))
 
 print json.dumps(results)
 
