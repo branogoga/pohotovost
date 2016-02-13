@@ -71,13 +71,13 @@
                 
                 var tableHtml = 
                   "<table>"
-                + "  <thead><th>.</th><th>Name</th><th>Address</th><th>Distance</th></thead><tbody>";
+                + "  <thead><th>Name</th><th>Address</th><th>Distance</th></thead><tbody>";
         
                 for(var i = 0; i < points.length; i++) {
                     var point = points[i];
                     
 
-                    tableHtml += "  <tr><td>"+(1+i)+".<td><td>"+point.name+"</td><td>"+point.address+"</td><td>"+(Math.round(point.distance * 100) / 100)+" km</td><tr>";
+                    tableHtml += "  <tr><td>"+point.name+"</td><td>"+point.address+"</td><td>"+(Math.round(point.distance * 100) / 100)+" km</td><tr>";
 
                 }    
                 
