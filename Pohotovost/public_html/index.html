@@ -10,15 +10,11 @@
         <link rel="icon" type="image/png" href="img/favicon.ico">
         <script src="js/vendor/modernizr.js"></script>
         <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="data.js"></script>
         <script>
 
-            var points = [
-                { lat: 10, lon: 10, name: "Zubná pohotovosť Ružinov", address: "Tupolevova 10, Bratislava" },
-                { lat: 11, lon: 10, name: "Dentissimo", address: "Salviova 10, Bratislava"  },
-                { lat: 12, lon: 10, name: "Zobboo", address: "Valentinska 10, Stupava"  },
-                { lat: 13, lon: 10, name: "Univerzitna Nemocnica s Pohotovostou", address: "Mickiewiczova 10, Bratislava"  },
-                { lat: 14, lon: 10, name: "Masiar & Syn", address: "Dovolenkarska 10, Bratislava"  },                
-            ];                      
+            // TODO: add choices
+            var points = pharmacies;                      
     
             function getLocation() {
                 if (navigator.geolocation) {
@@ -114,6 +110,11 @@
                 label: 'Your position'
               });
               markers.push(marker);
+
+
+              for (var i = 0; i < points.length; i++) {
+                addMarker(i, points[i]['lat'], points[i]['lon'], null);
+              }
             }
 
             function addMarker(id, lat, lng, icon) {
