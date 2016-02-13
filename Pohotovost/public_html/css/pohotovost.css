@@ -1,7 +1,7 @@
 .top-bar {
   background: #0066cc;
-  height: 4em;
-  text-align: center;
+  height: 3.5em;
+  /*text-align: center;*/
 
 }
 
@@ -40,7 +40,7 @@
 .buttons img {
 	max-width: 20em;
 	height: auto;
-	padding: 1em;
+	padding: 0.5em;
 }
 
 .top-bar-section ul li {
@@ -52,13 +52,50 @@
 }
 
 .top-bar-section ul li:hover:not(.has-form) > a {
-    background-color: #555555;
+    background-color: #0066cc;
 }
 
 .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button) {
-    background: #333333;
+    background: #0066cc;
  }
 
+ .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button):hover {
+    background: #333333;
+}
+
 .top-bar-section li.active:not(.has-form) a:not(.button) {
+    background: #333333;
+}
+
+ul li a img {
+	width: 17em;
+	height: auto;
+	padding-top: 0.7em;
+	text-align: center;
+
+}
+
+ul li:hover{
+	background-color: #0066ee;
+}
+
+#logo a:hover:after {
+    content: url(img/emergino-logo-white.png);
+    display: block;
+}
+
+
+.top-bar-section li:not(.has-form) a:not(.button):hover {
+    background-color: #555555;
     background: #0066cc;
+}
+
+
+.has-dropdown a img {
+	max-width: 3em;
+	height: auto;
+}
+
+.top-bar-section ul li > a {
+padding: 0 0 0 1em;
 }
