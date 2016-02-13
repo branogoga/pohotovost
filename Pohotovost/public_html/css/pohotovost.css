@@ -13,7 +13,7 @@
 
 #mapholder {
     width: 100%;
-    height: 500px;
+    height: 400px;
 }
 
 .map img {
@@ -79,6 +79,12 @@ ul li:hover{
 	background-color: #0066ee;
 }
 
+body > nav > section > ul > li:nth-child(2) > a > img {
+    position: absolute;
+    top: 0px;
+    left: 100px;
+}
+
 #logo a:hover:after {
     content: url(img/emergino-logo-white.png);
     display: block;
@@ -97,7 +103,7 @@ ul li:hover{
 }
 
 .top-bar-section ul li > a {
-padding: 0 0 0 1em;
+/*padding: 0 0 0 1em;*/
 }
 
 table {

@@ -142,7 +142,7 @@
 
               marker.addListener('click', function() {
                 // TODO: Scroll to correct element
-                changeTo(points[id]);
+                changeTo(points[id], id);
               });
             }
 
@@ -153,7 +153,16 @@
               markers = []
             }
 
-            function changeTo(point) {
+            function changeTo(point, i) {
+
+                var icon = {
+                    url: "img/" + selected + "_pin.png", // url
+                    scaledSize: new google.maps.Size(31, 48), // scaled size
+                    origin: new google.maps.Point(0,0), // origin
+                    anchor: new google.maps.Point(0, 0) // anchor
+                };
+                addMarker()
+
                 distance = getDistanceFromLatLonInKm(
                     currentLatitude, currentLongitude,
                     point.lat, point.lon
@@ -161,9 +170,9 @@
        
                 var tableHtml = 
                   "<table>"
-                + "  <thead><th>Name</th><th>Address</th><th>Distance</th><th>Navigate</th></thead><tbody>";
+                + "  <tbody>";
         
-                tableHtml += "  <tr'><td>"+point.name+"</td><td>"+point.address+"</td><td>"+(Math.round(point.distance * 100) / 100)+" km</td><td><button onClick='navigateTo("+point.lat+","+point.lon+")'>Navigate</button></td></tr>";
+                tableHtml += "  <tr'><td>"+point.name+"</td><td>"+point.address+"</td><td>"+(Math.round(point.distance * 100) / 100)+" km</td><td><button onClick='navigateTo("+point.lat+","+point.lon+")'>Navigate</button><br /><button href='"+point['phone']+"'>Call</button></td></tr>";
                 tableHtml += "</tbody></table>";
                 
                 document.getElementById("table").innerHTML = tableHtml;
