@@ -12,9 +12,22 @@
         <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
         <script src="data.js"></script>
         <script>
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
 
-            // TODO: add choices
-            var points = pharmacies;                      
+
+            var selected = getParameterByName('type');
+            if (!selected) {
+                selected = 'emergency';
+            }
+            var points = window[selected];                      
     
             function getLocation() {
                 if (navigator.geolocation) {
@@ -63,7 +76,9 @@
                 for(var i = 0; i < points.length; i++) {
                     var point = points[i];
                     
-                    tableHtml += "  <tr><td>"+(1+i)+".</td><td>"+point.name+"</td><td>"+point.address+"</td><td>"+point.distance+" km</td></tr>";
+
+                    tableHtml += "  <tr><td>"+(1+i)+".<td><td>"+point.name+"</td><td>"+point.address+"</td><td>"+(Math.round(point.distance * 100) / 100)+" km</td><tr>";
+
                 }    
                 
                 tableHtml += "</tbody></table>";
@@ -111,9 +126,15 @@
               });
               markers.push(marker);
 
+            var icon = {
+                url: "img/" + selected + "_pin.png", // url
+                scaledSize: new google.maps.Size(31, 48), // scaled size
+                origin: new google.maps.Point(0,0), // origin
+                anchor: new google.maps.Point(0, 0) // anchor
+            };
 
               for (var i = 0; i < points.length; i++) {
-                addMarker(i, points[i]['lat'], points[i]['lon'], null);
+                addMarker(i, points[i]['lat'], points[i]['lon'], icon);
               }
             }
 
@@ -121,7 +142,6 @@
               var marker = new google.maps.Marker({
                 position: {lat: lat, lng: lng},
                 map: map,
-                label: ""+id,
                 icon: icon
               });
 
@@ -137,6 +157,7 @@
               for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(null);
               }
+              markers = []
             }
 
             function navigateTo(lat, lng) {
@@ -176,7 +197,7 @@
         </a>
         <ul class="dropdown">
           <li><a href="index.html?type=emergency">Emergency</a></li>
-          <li><a href="index.html?type=dental">Dental</a></li>
+          <li><a href="index.html?type=dentist">Dental</a></li>
           <li><a href="index.html?type=pharmacy">Pharmacy</a></li>
         </ul>
       </li>
