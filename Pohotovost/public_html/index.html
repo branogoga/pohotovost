@@ -8,11 +8,11 @@
         <script>
 
             var points = [
-                { lat: 10, lon: 10 },
-                { lat: 11, lon: 10 },
-                { lat: 12, lon: 10 },
-                { lat: 13, lon: 10 },
-                { lat: 14, lon: 10 },                
+                { lat: 10, lon: 10, name: "Zubná pohotovosť Ružinov", address: "Tupolevova 10, Bratislava" },
+                { lat: 11, lon: 10, name: "Dentissimo", address: "Salviova 10, Bratislava"  },
+                { lat: 12, lon: 10, name: "Zobboo", address: "Valentinska 10, Stupava"  },
+                { lat: 13, lon: 10, name: "Univerzitna Nemocnica s Pohotovostou", address: "Mickiewiczova 10, Bratislava"  },
+                { lat: 14, lon: 10, name: "Masiar & Syn", address: "Dovolenkarska 10, Bratislava"  },                
             ];                      
     
             function getLocation() {
@@ -22,36 +22,56 @@
                     alert("Geolocation is not supported by this browser.");
                 }
             }
-            var currentLatitude = null;
-            var currentLongitude = null;
+            var currentLatitude = 12; //null;
+            var currentLongitude = 12; //null;
             function showMapWithPosition(lat, long) {
                 var latlon = lat + "," + long;
 
-                var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false";
+                var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=800x600&sensor=false";
 
                 document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";            
             }
+            
             function showPosition(position) {
                 currentLatitude = position.coords.latitude;
                 currentLongitude = position.coords.longitude;
                 showMapWithPosition(currentLatitude, currentLongitude);
-                
-                console.log(points);
-                
+                showTable();
+            }
+            function showTable() {
+                // Parse JSON string into object
+                //var points = JSON.parse(response);
+
+                //console.log(points);
+
                 for(var i = 0; i < points.length; i++) {
                     var point = points[i];
                     point.distance = getDistanceFromLatLonInKm(
                             currentLatitude, currentLongitude,
                             point.lat, point.lon
                             );    
-                    console.log(point.distance);
+                    //console.log(point.distance);
                 }    
-                
+
                 points.sort(function(a, b) {
                     return parseFloat(a.distance) - parseFloat(b.distance);
                 });                
-                
+
                 console.log(points);
+                
+                var tableHtml = 
+                  "<table>"
+                + "  <tr>.<th></th><th>Name</th><th>Address</th><th>Distance</th><tr>";
+        
+                for(var i = 0; i < points.length; i++) {
+                    var point = points[i];
+                    
+                    tableHtml += "  <tr><td>"+(1+i)+".<td><td>"+point.name+"</td><td>"+point.address+"</td><td>"+point.distance+" km</td><tr>";
+                }    
+                
+                tableHtml += "</table>";
+                
+                document.getElementById("table").innerHTML = tableHtml;
             }
             function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
               var R = 6371; // Radius of the earth in km
@@ -72,11 +92,13 @@
             }            
             function run() {
                 getLocation();
+                showTable();
             };
         </script>
     </head>
     <body onload="run()">
         <div>Hello Patient!</div>
         <div id="mapholder"></div>
+        <div id="table"></div>
     </body>
 </html>
