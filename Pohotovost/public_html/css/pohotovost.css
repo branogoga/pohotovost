@@ -1,15 +1,17 @@
 .top-bar {
   background: #0066cc;
   height: 3.5em;
-  /*text-align: center;*/
 
 }
 
-.map {
-	/*height: 300px;
-	width: auto;
-	background-color: yellow;*/
+.row {
+	max-width: 100%;
 }
+
+.empty {
+	height: 8em;
+}
+
 
 #mapholder {
     width: 100%;
@@ -19,8 +21,6 @@
 .map img {
 	max-width: 100%;
 	width: 100%;
-	/*padding: 0 2em;
-	margin: auto;*/
 }
 
 #navigate {
@@ -41,16 +41,29 @@
 	margin: 0px auto;
 }
 
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) { 
+
+	.buttons img {
+		max-width: 13em;
+		height: auto;
+		padding: 0.5em;
+	}
+}
+
 .buttons {
-		text-align: center;
+	text-align: center;
 
 }
 
 .buttons img {
-	max-width: 13em;
-	height: auto;
-	padding: 0.5em;
+	max-width: 20em;
+	margin-top: 2em;
+	padding: 0 1em;
 }
+
 
 body {
     min-width: 100;
@@ -97,10 +110,10 @@ body > nav > section > ul > li:nth-child(2) > a > img {
     left: 50px;
 }
 
-#logo a:hover:after {
+/*#logo a:hover:after {
     content: url(img/emergino-logo-white.png);
     display: block;
-}
+}*/
 
 
 .top-bar-section li:not(.has-form) a:not(.button):hover {
@@ -124,18 +137,15 @@ table {
 	width: 100%;
 }
 
-.pharmacy-icon-active:hover {
--webkit-filter: brightness(130%);
-filter: brightness(130%);
-}
-.emergency-icon-active:hover {
+.pharmacy-icon-active:hover, .emergency-icon-active:hover, .dental-icon-active:hover, #logo:hover, #menu:hover{
 -webkit-filter: brightness(130%);
 filter: brightness(130%);
 }
 
-.dental-icon-active:hover {
--webkit-filter: brightness(130%);
-filter: brightness(130%);
+.top-bar:hover {
+-webkit-filter: brightness(110%);
+filter: brightness(110%);	
 }
+
 
 

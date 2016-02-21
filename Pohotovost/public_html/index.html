@@ -8,7 +8,7 @@
 	    <link rel="stylesheet" href="css/normalize.css">
 	    <link rel="stylesheet" href="css/foundation.css">
 	    <link rel="stylesheet" href="css/pohotovost.css">
-	    <link rel="icon" type="image/png" href="img/favicon.ico">
+	    <link rel="icon" type="image/png" href="img/favicon.png">
 	    <script src="js/vendor/modernizr.js"></script>
 	</head>
 	<body>
@@ -17,34 +17,49 @@
   	<ul class="left">
         <li class="has-dropdown">
           <a href="#">
-          	<img src="img/menu2.png" alt="Emergency">
+          	<img id="menu" src="img/menu2.png" alt="Emergency">
           </a>
           <ul class="dropdown">
             <li><a href="map.html?type=emergency">Emergency</a></li>
-            <li><a href="map.html?type=dentist">Dental</a></li>
+            <li><a href="map.html?type=dentist">Dentist</a></li>
             <li><a href="map.html?type=pharmacy">Pharmacy</a></li>
           </ul>
         </li>
         <li><a href="index.html">
-        	<img src="img/emergino-logo_white.png" alt="emergino">
+        	<img id="logo" src="img/emergino-logo_white.png" alt="emergino">
         </a></li>
       </ul>
   </section>
 </nav>
 		<div class="buttons">
 			<div class = "row">
-				<div class = "small-12 columns">
+				<div class = "empty medium-12 columns show-for-large-up"></div>
+				<div class = "web medium-12 columns show-for-medium-up">
+					<a class="pharmacy-icon-active" href="map.html?type=emergency">
+						<img src="img/emergency.png" alt="">
+					</a>
+					<a class="dental-icon-active" href="map.html?type=dentist">
+						<img src="img/dentist.png" alt="">
+					</a>
+					<a class="pharmacy-icon-active" href="map.html?type=pharmacy">
+						<img src="img/pharmacy.png" alt="">
+					</a>
+				</div>
+
+				<div class = "small-12 columns hide-for-medium-up">
 					<a class="pharmacy-icon-active" href="map.html?type=emergency">
 						<img src="img/emergency.png" alt="">
 					</a>
 				</div>
-				<div class = "small-12 columns">
+				<div class = "small-12 columns hide-for-medium-up">
 					<a class="dental-icon-active" href="map.html?type=dentist">
 						<img src="img/dentist.png" alt="">
 					</a>
 				</div>
-				<div class = "small-12 columns">
-					<a class="pharmacy-icon-active" href="map.html?type=pharmacy"><img src="img/pharmacy.png" alt=""></a>
+				<div class = "small-12 columns hide-for-medium-up">
+					<a class="pharmacy-icon-active" href="map.html?type=pharmacy">
+						<img src="img/pharmacy.png" alt="">
+					</a>
 				</div>
 			</div>
 		</div>
